@@ -16,8 +16,11 @@ def test_add_new_pet():
     print(add_new_pet_response.json())
 
 
-def test_find_pett_id():
-    find_pet_id_response = find_pet_id()
+def test_find_pet_id():
+    add_new_pet_response = add_new_pet()
+    assert add_new_pet_response.status_code == 200
+    data = add_new_pet_response.json()["id"]
+    find_pet_id_response = find_pet_id(data)
     assert find_pet_id_response.status_code == 200
 
 
@@ -32,8 +35,8 @@ def add_new_pet():
     return requests.post(ENDOINT, headers=headers, data=payload)
 
 
-def find_pet_id():
-    return requests.get(ENDOINT + "/9223372036854775807")
+def find_pet_id(pet_id):
+    return requests.get(f"{ENDOINT}/{pet_id}")
 
 
 def payload_pet():

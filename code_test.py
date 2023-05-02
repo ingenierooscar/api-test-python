@@ -22,9 +22,11 @@ payload = json.dumps({
     ],
     "status": "available"
 })
+
 headers = {
     'Content-Type': 'application/json'
 }
+
 
 response = requests.post(url, headers=headers, data=payload)
 
